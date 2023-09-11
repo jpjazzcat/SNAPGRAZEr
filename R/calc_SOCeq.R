@@ -21,7 +21,7 @@ calc_SOCeq = function(PDSOCt, DDSOCt, SAND, RAIN, Gdays, lowSOC = FALSE) {
 
     SOCeq =
 
-      ((PDSOCt+DDSOCt+0.579*WETDAYS*(0.7+0.3*(SAND/100)))/(0.00036*WETDAYS*(0.7+0.3*(SAND/100))))
+      ((PDSOCt+DDSOCt+(0.579*WETDAYS*(0.7+0.3*(SAND/100))))/(0.00036*WETDAYS*(0.7+0.3*(SAND/100))))
 
   }
 
