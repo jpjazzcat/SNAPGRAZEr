@@ -20,13 +20,19 @@ calc_Sg = function(Sk, Se, Lg, Ddays, n, d, r, W = NA, Cg = NA) {
 
   } else if(is.numeric(W)) {
 
-    Cg = 2*(5300+770*log(W))
+    Cg = (5300+770*log(W))
 
   } else {print("You need to either provide Cg (daily consumption) or W (animal body size)")}
 
   g = (d*Cg*n*10^(-4))/Se
   Sg = (Sk*Se)/(Sk*exp(-(r-g)*Ddays)+Se*(1-exp(-(r-g)*Ddays)))-Lg
-  return(Sg)
+  if(Sg < 0){
+    warning("ERROR: Grazing intensity exceeds forage production.")
+  } else{
+    return(Sg)
+  }
+
+
 
 }
 

@@ -8,10 +8,16 @@
 #' @param S0 Biomass condition prior to the growing season (at the end of the dry season) that is mostly comprised of carbon stores in rhizomes. Default is 0.1*SK.
 #' @export
 
-calc_Pg = function(Se, Sg, Sf, Sk, S0 = 0.1*Sk) {
+calc_Pg = function(Se, Sg, Sf, Sk, S0 = 0.1 * Sk) {
+  if (Sg < 0) {
+    warning("ERROR: Grazing intensity exceeds forage production.")
+  } else{
+    Pg = (Se - S0) + (Sf - min(Sg, Se))
 
-  Pg = (Se-S0) + (Sf-min(Sg, Se))
+    return(Pg)
 
-  return(Pg)
+  }
+
+
 
 }

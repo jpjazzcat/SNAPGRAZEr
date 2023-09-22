@@ -16,7 +16,7 @@ calc_Lg = function(Ddays, d, n, W = NA, Cg = NA) {
 
   } else if(is.numeric(W)) {
 
-    Cg = 2*(5300+770*log(W))
+    Cg = (5300+770*log(W))
 
   } else {print("You need to either provide Cg (daily consumption) or W (animal body size)")}
 
