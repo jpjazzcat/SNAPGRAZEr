@@ -22,7 +22,7 @@
 #' @param DEPTH Default = 30. Depth of soil sampling / estimation (cm). The original SNAP model was developed based on measurements to a depth of 40 cm.
 #' @export
 
-SNAPGRAZE = function(SAND, RAIN, MAT, FIRE, LIGCELL,
+SNAPGRAZE_orig = function(SAND, RAIN, MAT, FIRE, LIGCELL,
                      Sk = NA, S0 = 0.1*Sk, Edays, Ddays, Fdays, Gdays = NA,
                      d, n, W, Cg = NA, r = 0.05, APCcorrection = FALSE, lowSOC = FALSE, DEPTH = 30) {
 
