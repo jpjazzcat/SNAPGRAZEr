@@ -22,7 +22,7 @@
 #' @param APCcorrection Default = FALSE. A correction factor for the influence of annual versus perennial plant growth strategies on belowground production. If correction is applied, then APC = 0.291. This is where forage is dominated by annuals (or shrubs often associated with annuals in drier grasslands). Otherwise, APC = 1.
 #' @param lowSOC Default = FALSE. Different regression equation for respiration rate is applied for low and high SOC to avoid a negative respiration rate (which isn't physically possible). Threshold for what qualifies as "low SOC" is 4,600 gC/m^2 (i.e. 46 t/ha). Low SOC regression equation is applicable for higher SOC, but just with slightly lower R-squared.
 #' @param DEPTH Default = 30. Depth of soil sampling / estimation (cm). The original SNAP model was developed based on measurements to a depth of 40 cm.
-#' @export SOCyears Final SOC stock at the end of the simulation period.
+#' @export
 
 SNAPGRAZE_delta = function(SAND, RAIN, MAT, FIRE, LIGCELL, years, SOC,
                      Sk = NA, S0 = 0.1*Sk, Edays, Ddays, Fdays, Gdays = NA,

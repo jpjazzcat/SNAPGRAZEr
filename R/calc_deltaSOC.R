@@ -8,7 +8,7 @@
 #' @param Gdays Total number of days in the growing season. Default = 153 (October to March-ish).
 #' @param SOC Starting soil carbon stocks (g/m2).
 #' @param lowSOC Default = FALSE. Different regression equation for respiration rate is applied for low and high SOC to avoid a negative respiration rate (which isn't physically possible). Threshold for what qualifies as "low SOC" is 4,600 gC/m^2 (i.e. 46 t/ha). Low SOC regression equation is applicable for higher SOC, but just with slightly lower R-squared.
-#' @export deltaSOC Change in soil carbon stocks over year t (g/m2)
+#' @export
 
 calc_deltaSOC = function(PDSOCt, DDSOCt, SAND, RAIN, Gdays, SOC, lowSOC = FALSE) {
 
