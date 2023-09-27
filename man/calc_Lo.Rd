@@ -4,7 +4,7 @@
 \alias{calc_Lo}
 \title{Loss of biomass during the off season}
 \usage{
-calc_Lo(Cg, Gdays = 153, d)
+calc_Lo(Cg, Gdays = 153, d_off)
 }
 \arguments{
 \item{Cg}{Daily consumption rate (g/animal/day). This is the average rate during the growing season - for the dormant season, the equations assume half this consumption rate.}

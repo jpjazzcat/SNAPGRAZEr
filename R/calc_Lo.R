@@ -6,9 +6,9 @@
 #' @param d Stocking density (head/ha)
 #' @export
 
-calc_Lo= function(Cg, Gdays = 153, d) {
+calc_Lo= function(Cg, Gdays = 153, d_off) {
 
-  Lo = (Cg)*(365-Gdays)*d*10^(-4)
+  Lo = (Cg)*(365-Gdays)*d_off*10^(-4)
   return(Lo)
 
 }

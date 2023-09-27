@@ -18,6 +18,7 @@ SNAPGRAZE_delta(
   Ddays,
   Fdays,
   Gdays = NA,
+  d_off,
   d,
   n,
   W,
