@@ -76,7 +76,7 @@ SNAPGRAZE_delta = function(SAND, RAIN, MAT, FIRE, LIGCELL, years, SOC,
 
   }
 
-  return(soc_list[[years+1]])
+  return(soc_list)
 
 
 
