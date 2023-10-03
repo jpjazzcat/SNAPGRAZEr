@@ -10,7 +10,7 @@
 calc_Sf = function(Sk, Sg, r, Fdays) {
 
   if (Sg < 0) {
-    warning("ERROR: Grazing intensity exceeds forage production.")
+    stop("ERROR: Grazing intensity exceeds forage production.")
   } else{
 
     Sf = (Sk*Sg)/(Sk*exp(-(r*Fdays))+Sg*(1-exp(-(r*Fdays))))

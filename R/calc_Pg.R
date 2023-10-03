@@ -10,7 +10,7 @@
 
 calc_Pg = function(Se, Sg, Sf, Sk, S0 = 0.1 * Sk) {
   if (Sg < 0) {
-    warning("ERROR: Grazing intensity exceeds forage production.")
+    stop("ERROR: Grazing intensity exceeds forage production.")
   } else{
     Pg = (Se - S0) + (Sf - min(Sg, Se))
 

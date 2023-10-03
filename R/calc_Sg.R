@@ -27,7 +27,7 @@ calc_Sg = function(Sk, Se, Lg, Ddays, n, d, r, W = NA, Cg = NA) {
   g = (d*Cg*n*10^(-4))/Se
   Sg = (Sk*Se)/(Sk*exp(-(r-g)*Ddays)+Se*(1-exp(-(r-g)*Ddays)))-Lg
   if(Sg < 0){
-    warning("ERROR: Grazing intensity exceeds forage production.")
+    stop("ERROR: Grazing intensity exceeds forage production.")
   } else{
     return(Sg)
   }
