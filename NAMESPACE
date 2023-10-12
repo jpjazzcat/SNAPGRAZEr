@@ -2,7 +2,6 @@
 
 export(SNAPGRAZE)
 export(SNAPGRAZE_delta)
-export(SNAPGRAZE_orig)
 export(calc_ANPPest)
 export(calc_ANPPmax)
 export(calc_BNPPest)

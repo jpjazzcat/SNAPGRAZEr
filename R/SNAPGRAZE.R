@@ -20,11 +20,12 @@
 #' @param APCcorrection Default = FALSE. A correction factor for the influence of annual versus perennial plant growth strategies on belowground production. If correction is applied, then APC = 0.291. This is where forage is dominated by annuals (or shrubs often associated with annuals in drier grasslands). Otherwise, APC = 1.
 #' @param lowSOC Default = FALSE. Different regression equation for respiration rate is applied for low and high SOC to avoid a negative respiration rate (which isn't physically possible). Threshold for what qualifies as "low SOC" is 4,600 gC/m^2 (i.e. 46 t/ha). Low SOC regression equation is applicable for higher SOC, but just with slightly lower R-squared.
 #' @param DEPTH Default = 30. Depth of soil sampling / estimation (cm). The original SNAP model was developed based on measurements to a depth of 40 cm.
+#' @param orig Default = FALSE. Use the original DMRESP equations from Ritchie 2020 or the updated ones from Ruan deWet
 #' @export
 
 SNAPGRAZE = function(SAND, RAIN, MAT, FIRE, LIGCELL,
                      Sk = NA, S0 = 0.1*Sk, Edays, Ddays, Fdays, Gdays = NA,
-                     d, n, W, Cg = NA, r = 0.05, APCcorrection = FALSE, lowSOC = FALSE, DEPTH = 30) {
+                     d, n, W, Cg = NA, r = 0.05, APCcorrection = FALSE, lowSOC = FALSE, DEPTH = 30, orig = FALSE) {
 
   if(is.na(Gdays)){
     Gdays = 22.99*MAT-0.94*MAT^2+0.073*RAIN
@@ -61,7 +62,7 @@ SNAPGRAZE = function(SAND, RAIN, MAT, FIRE, LIGCELL,
   PDSOCt = calc_PDSOCt(BNPPt_est, Sf, Lo, LIGCELL, FIRE)
   DDSOCt = calc_DDSOCt(LIGCELL, Ddays, Cg, n, d, Lo)
 
-  SOCeq = calc_SOCeq(PDSOCt, DDSOCt, SAND, RAIN, Gdays, lowSOC)
+  SOCeq = calc_SOCeq(PDSOCt, DDSOCt, SAND, RAIN, Gdays, lowSOC, orig)
 
   return(SOCeq)
 

@@ -7,23 +7,49 @@
 #' @param RAIN MAP for year t (mm/year)
 #' @param Gdays Total number of days in the growing season. Default = 153 (October to March-ish).
 #' @param lowSOC Default = FALSE. Different regression equation for respiration rate is applied for low and high SOC to avoid a negative respiration rate (which isn't physically possible). Threshold for what qualifies as "low SOC" is 4,600 gC/m^2 (i.e. 46 t/ha). Low SOC regression equation is applicable for higher SOC, but just with slightly lower R-squared.
+#' @param orig Default = FALSE. Use the original DMRESP equations from Ritchie 2020 or the updated ones from Ruan deWet
 #' @export
 
-calc_SOCeq = function(PDSOCt, DDSOCt, SAND, RAIN, Gdays, lowSOC = FALSE) {
+calc_SOCeq = function(PDSOCt, DDSOCt, SAND, RAIN, Gdays, lowSOC = FALSE, orig = FALSE) {
 
   WETDAYS = (0.00044*RAIN-0.025)*Gdays
 
-  if(lowSOC) {
+  if(orig) {
 
-    SOCeq = ((PDSOCt+DDSOCt)/(WETDAYS*(0.7+0.3*(SAND/100)*exp(-10.872))))^(1/1.296)
+    if(lowSOC) {
+
+      SOCeq = ((PDSOCt+DDSOCt)/(WETDAYS*(0.7+0.3*(SAND/100)*exp(-10.872))))^(1/1.296)
+
+    } else {
+
+      SOCeq =
+
+        ((PDSOCt+DDSOCt+(0.579*WETDAYS*(0.7+0.3*(SAND/100))))/(0.00044*WETDAYS*(0.7+0.3*(SAND/100))))
+
+    }
+
 
   } else {
 
-    SOCeq =
+    if(lowSOC) {
 
-      ((PDSOCt+DDSOCt+(0.579*WETDAYS*(0.7+0.3*(SAND/100))))/(0.00036*WETDAYS*(0.7+0.3*(SAND/100))))
+      SOCeq = ((PDSOCt+DDSOCt)/(WETDAYS*(0.7+0.3*(SAND/100)*exp(-10.872))))^(1/1.296)
+
+    } else {
+
+      SOCeq =
+
+        ((PDSOCt+DDSOCt+(0.579*WETDAYS*(0.7+0.3*(SAND/100))))/(0.00036*WETDAYS*(0.7+0.3*(SAND/100))))
+
+    }
+
 
   }
+
+
+
+
+
 
   return(SOCeq)
 

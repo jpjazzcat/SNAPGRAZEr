@@ -23,7 +23,8 @@ SNAPGRAZE(
   r = 0.05,
   APCcorrection = FALSE,
   lowSOC = FALSE,
-  DEPTH = 30
+  DEPTH = 30,
+  orig = FALSE
 )
 }
 \arguments{
@@ -64,6 +65,8 @@ SNAPGRAZE(
 \item{lowSOC}{Default = FALSE. Different regression equation for respiration rate is applied for low and high SOC to avoid a negative respiration rate (which isn't physically possible). Threshold for what qualifies as "low SOC" is 4,600 gC/m^2 (i.e. 46 t/ha). Low SOC regression equation is applicable for higher SOC, but just with slightly lower R-squared.}
 
 \item{DEPTH}{Default = 30. Depth of soil sampling / estimation (cm). The original SNAP model was developed based on measurements to a depth of 40 cm.}
+
+\item{orig}{Default = FALSE. Use the original DMRESP equations from Ritchie 2020 or the updated ones from Ruan deWet}
 }
 \description{
 This is a wrapper function around all the SNAPGRAZE equations to calculate SOCeq based on the below input parameters.

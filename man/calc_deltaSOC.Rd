@@ -4,7 +4,16 @@
 \alias{calc_deltaSOC}
 \title{Delta SOC}
 \usage{
-calc_deltaSOC(PDSOCt, DDSOCt, SAND, RAIN, Gdays, SOC, lowSOC = FALSE)
+calc_deltaSOC(
+  PDSOCt,
+  DDSOCt,
+  SAND,
+  RAIN,
+  Gdays,
+  SOC,
+  lowSOC = FALSE,
+  orig = FALSE
+)
 }
 \arguments{
 \item{PDSOCt}{Output of calc_PDSOCt()}
@@ -20,6 +29,8 @@ calc_deltaSOC(PDSOCt, DDSOCt, SAND, RAIN, Gdays, SOC, lowSOC = FALSE)
 \item{SOC}{Starting soil carbon stocks (g/m2).}
 
 \item{lowSOC}{Default = FALSE. Different regression equation for respiration rate is applied for low and high SOC to avoid a negative respiration rate (which isn't physically possible). Threshold for what qualifies as "low SOC" is 4,600 gC/m^2 (i.e. 46 t/ha). Low SOC regression equation is applicable for higher SOC, but just with slightly lower R-squared.}
+
+\item{orig}{Default = FALSE. Use the original DMRESP equations from Ritchie 2020 or the updated ones from Ruan deWet}
 }
 \description{
 To calculate the change in SOC for year t (deltaSOCt), we need the combination of PDSOCt and DDSOCt, but also the maximum rate of microbial respiration for year t (MRESPt). A key input to MRESPt is WETDAYS, which is calculated as part of this function.
