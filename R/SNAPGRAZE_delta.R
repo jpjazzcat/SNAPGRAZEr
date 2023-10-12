@@ -26,7 +26,7 @@
 
 SNAPGRAZE_delta = function(SAND, RAIN, MAT, FIRE, LIGCELL, years, SOC,
                      Sk = NA, S0 = 0.1*Sk, Edays, Ddays, Fdays, Gdays = NA, d_off,
-                     d, n, W, Cg = NA, r = 0.05, APCcorrection = FALSE, lowSOC = FALSE, DEPTH = 30) {
+                     d, n, W, Cg = NA, r = 0.05, APCcorrection = FALSE, lowSOC = FALSE, DEPTH = 30, orig = FALSE) {
 
   if(is.na(Gdays)){
     Gdays = 22.99*MAT-0.94*MAT^2+0.073*RAIN
@@ -68,7 +68,7 @@ SNAPGRAZE_delta = function(SAND, RAIN, MAT, FIRE, LIGCELL, years, SOC,
 
   for(i in 1:years){
     x <- soc_list[[i]]
-    deltaSOC = calc_deltaSOC(PDSOCt, DDSOCt, SAND, RAIN, Gdays, SOC = x, lowSOC)
+    deltaSOC = calc_deltaSOC(PDSOCt, DDSOCt, SAND, RAIN, Gdays, SOC = x, lowSOC, orig)
     # SOC stock at the end of year i
     SOCi =  x+deltaSOC
     i <- i+1

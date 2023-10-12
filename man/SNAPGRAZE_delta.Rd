@@ -26,7 +26,8 @@ SNAPGRAZE_delta(
   r = 0.05,
   APCcorrection = FALSE,
   lowSOC = FALSE,
-  DEPTH = 30
+  DEPTH = 30,
+  orig = FALSE
 )
 }
 \arguments{
