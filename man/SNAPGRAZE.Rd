@@ -16,6 +16,7 @@ SNAPGRAZE(
   Ddays,
   Fdays,
   Gdays = NA,
+  d_off,
   d,
   n,
   W,
