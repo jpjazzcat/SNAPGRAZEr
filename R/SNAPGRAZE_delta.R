@@ -33,7 +33,7 @@ SNAPGRAZE_delta = function(SAND, RAIN, MAT, FIRE, LIGCELL, years, SOC,
   }
 
   if(is.na(Sk)){
-    Sk = calc_ANPPmax(RAIN, MAT)/0.9
+    Sk = calc_ANPPmax(RAIN, MAT, SAND)/0.9
   }
 
   if(is.na(Cg)) {
