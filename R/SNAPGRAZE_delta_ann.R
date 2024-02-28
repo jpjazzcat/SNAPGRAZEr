@@ -28,6 +28,7 @@ SNAPGRAZE_delta_ann = function(SAND, RAIN, MAT, FIRE, LIGCELL, years, SOC,
                            Sk = NA, S0 = 0.1*Sk, Edays, Ddays, Fdays, Gdays = NA, d_off,
                            d, n, W, Cg = NA, r = 0.05, APCcorrection = FALSE, lowSOC = FALSE, DEPTH = 30, orig = FALSE) {
 
+
   soc_list = vector("list", (years+1))
   soc_list[[1]] <- SOC
 
@@ -41,37 +42,41 @@ SNAPGRAZE_delta_ann = function(SAND, RAIN, MAT, FIRE, LIGCELL, years, SOC,
 
   for(i in 1:years){
 
-    RAIN <- test_input(RAIN)
-    MAT <- test_input(MAT)
-    FIRE <- test_input(FIRE)
-    LIGCELL <- test_input(LIGCELL)
-    Ddays <- test_input(Ddays)
-    Edays <- test_input(Edays)
-    d <- test_input(d)
-    d_off <- test_input(d_off)
-    n <- test_input(n)
-    APCcorrection <- test_input(APCcorrection)
-
+    RAIN_i <- test_input(RAIN)
+    MAT_i <- test_input(MAT)
+    FIRE_i <- test_input(FIRE)
+    LIGCELL_i <- test_input(LIGCELL)
+    Ddays_i <- test_input(Ddays)
+    Edays_i <- test_input(Edays)
+    d_i <- test_input(d)
+    d_off_i <- test_input(d_off)
+    n_i <- test_input(n)
+    APCcorrection_i <- test_input(APCcorrection)
 
     if(is.na(Gdays)){
-      Gdays = 22.99*MAT-0.94*MAT^2+0.073*RAIN
+      Gdays = 22.99*MAT_i-0.94*MAT_i^2+0.073*RAIN_i
     }
 
     if(is.na(Sk)){
-      Sk = calc_ANPPmax(RAIN, MAT, SAND)/0.9
+      Sk = calc_ANPPmax(RAIN_i, MAT_i, SAND_i)/0.9
     }
 
     if(is.na(Cg)) {
       Cg = (5300+770*log(W))
     }
 
+    if(is.na(Fdays)){
+      Fdays = Gdays-(Edays_i+Ddays_i)
+    }
+
+
     # Episodic Herbivory Model (EHM)
-    Se = calc_SE(Sk, Edays, S0, r)
-    Lg = calc_Lg(Ddays, d, n, W, Cg)
-    Sg = calc_Sg(Sk, Se, Lg, Ddays, n, d, r, W, Cg)
+    Se = calc_SE(Sk, Edays = Edays_i, S0, r)
+    Lg = calc_Lg(Ddays = Ddays_i, d = d_i, n = n_i, W, Cg)
+    Sg = calc_Sg(Sk, Se, Lg, Ddays = Ddays_i, n = n_i, d = d_i, r, W, Cg)
     Sf = calc_Sf(Sk, Sg, r, Fdays)
     Pg = calc_Pg(Se, Sg, Sf, Sk, S0)
-    Lo = calc_Lo(Cg, Gdays, d_off)
+    Lo = calc_Lo(Cg, Gdays, d_off = d_off_i)
 
     # dmax = calc_dmax(Sf, Sk, Cg, Gdays)
 
@@ -80,21 +85,22 @@ SNAPGRAZE_delta_ann = function(SAND, RAIN, MAT, FIRE, LIGCELL, years, SOC,
     #   } else {print("Stocking density A-O-K!")}
 
     # Productivity
-    ANPPt_max = calc_ANPPmax(RAIN, MAT, SAND)
+    ANPPt_max = calc_ANPPmax(RAIN = RAIN_i, MAT = MAT_i, SAND)
     ANPPt_est = calc_ANPPest(Se, Sg, Sf, Sk, S0)
-    BNPPt_est = calc_BNPPest(RAIN, MAT, ANPPt_est, Sk, S0, APCcorrection, DEPTH)
+    BNPPt_est = calc_BNPPest(RAIN = RAIN_i, MAT = MAT_i, ANPPt_est, Sk, S0, APCcorrection = APCcorrection_i, DEPTH)
 
     # SOC
-    PDSOCt = calc_PDSOCt(BNPPt_est, Sf, Lo, LIGCELL, FIRE)
-    DDSOCt = calc_DDSOCt(LIGCELL, Ddays, Cg, n, d, Lo)
+    PDSOCt = calc_PDSOCt(BNPPt_est, Sf, Lo, LIGCELL = LIGCELL_i, FIRE = FIRE_i)
+    DDSOCt = calc_DDSOCt(LIGCELL = LIGCELL_i, Ddays = Ddays_i, Cg, n = n_i, d = d_i, Lo)
 
     x <- soc_list[[i]]
-    deltaSOC = calc_deltaSOC(PDSOCt, DDSOCt, SAND, RAIN, Gdays, SOC = x, lowSOC, orig)
+    deltaSOC = calc_deltaSOC(PDSOCt, DDSOCt, SAND, RAIN = RAIN_i, Gdays, SOC = x, lowSOC, orig=FALSE)
     # SOC stock at the end of year i
     SOCi_end =  x+deltaSOC
     soc_list[[i+1]] <- SOCi_end
 
   }
+
 
   return(soc_list)
 
