@@ -66,7 +66,7 @@ SNAPGRAZE_delta_ann = function(SAND, RAIN, MAT, FIRE, LIGCELL, years, SOC,
     }
 
     if(is.na(S0)){
-      S0_i = 0.1*Sk
+      S0_i = 0.1*Sk_i
     }else{
       S0_i = S0
     }
