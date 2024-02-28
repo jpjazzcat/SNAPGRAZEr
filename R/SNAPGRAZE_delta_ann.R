@@ -76,6 +76,8 @@ SNAPGRAZE_delta_ann = function(SAND, RAIN, MAT, FIRE, LIGCELL, years, SOC,
 
     if(is.na(Fdays)){
       Fdays_i = Gdays_i-(Edays_i+Ddays_i)
+    }else{
+      Fdays_i = Fdays
     }
 
 
