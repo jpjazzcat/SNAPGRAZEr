@@ -54,15 +54,15 @@ SNAPGRAZE_delta_ann = function(SAND, RAIN, MAT, FIRE, LIGCELL, years, SOC,
     APCcorrection_i <- test_input(APCcorrection)
 
     if(is.na(Gdays)){
-      Gdays = 22.99*MAT_i-0.94*MAT_i^2+0.073*RAIN_i
+      Gdays_i = 22.99*MAT_i-0.94*MAT_i^2+0.073*RAIN_i
     }
 
     if(is.na(Sk)){
-      Sk = calc_ANPPmax(RAIN_i, MAT_i, SAND)/0.9
+      Sk_i = calc_ANPPmax(RAIN_i, MAT_i, SAND)/0.9
     }
 
     if(is.na(S0)){
-      S0 = 0.1*Sk
+      S0_i = 0.1*Sk
     }
 
 
@@ -71,17 +71,17 @@ SNAPGRAZE_delta_ann = function(SAND, RAIN, MAT, FIRE, LIGCELL, years, SOC,
     }
 
     if(is.na(Fdays)){
-      Fdays = Gdays-(Edays_i+Ddays_i)
+      Fdays_i = Gdays_i-(Edays_i+Ddays_i)
     }
 
 
     # Episodic Herbivory Model (EHM)
-    Se = calc_SE(Sk, Edays = Edays_i, S0, r)
+    Se = calc_SE(Sk = Sk_i, Edays = Edays_i, S0 = S0_i, r)
     Lg = calc_Lg(Ddays = Ddays_i, d = d_i, n = n_i, W, Cg)
-    Sg = calc_Sg(Sk, Se, Lg, Ddays = Ddays_i, n = n_i, d = d_i, r, W, Cg)
-    Sf = calc_Sf(Sk, Sg, r, Fdays)
-    Pg = calc_Pg(Se, Sg, Sf, Sk, S0)
-    Lo = calc_Lo(Cg, Gdays, d_off = d_off_i)
+    Sg = calc_Sg(Sk = Sk_i, Se, Lg, Ddays = Ddays_i, n = n_i, d = d_i, r, W, Cg)
+    Sf = calc_Sf(Sk = Sk_i, Sg, r, Fdays = Fdays_i)
+    Pg = calc_Pg(Se, Sg, Sf, Sk = Sk_i, S0 = S0_i)
+    Lo = calc_Lo(Cg, Gdays = Gdays_i, d_off = d_off_i)
 
     # dmax = calc_dmax(Sf, Sk, Cg, Gdays)
 
@@ -91,15 +91,15 @@ SNAPGRAZE_delta_ann = function(SAND, RAIN, MAT, FIRE, LIGCELL, years, SOC,
 
     # Productivity
     ANPPt_max = calc_ANPPmax(RAIN = RAIN_i, MAT = MAT_i, SAND)
-    ANPPt_est = calc_ANPPest(Se, Sg, Sf, Sk, S0)
-    BNPPt_est = calc_BNPPest(RAIN = RAIN_i, MAT = MAT_i, ANPPt_est, Sk, S0, APCcorrection = APCcorrection_i, DEPTH)
+    ANPPt_est = calc_ANPPest(Se, Sg, Sf, Sk = Sk_i, S0 = S0_i)
+    BNPPt_est = calc_BNPPest(RAIN = RAIN_i, MAT = MAT_i, ANPPt_est, Sk = Sk_i, S0 = S0_i, APCcorrection = APCcorrection_i, DEPTH)
 
     # SOC
     PDSOCt = calc_PDSOCt(BNPPt_est, Sf, Lo, LIGCELL = LIGCELL_i, FIRE = FIRE_i)
     DDSOCt = calc_DDSOCt(LIGCELL = LIGCELL_i, Ddays = Ddays_i, Cg, n = n_i, d = d_i, Lo)
 
     x <- soc_list[[i]]
-    deltaSOC = calc_deltaSOC(PDSOCt, DDSOCt, SAND, RAIN = RAIN_i, Gdays, SOC = x, lowSOC, orig=FALSE)
+    deltaSOC = calc_deltaSOC(PDSOCt, DDSOCt, SAND, RAIN = RAIN_i, Gdays = Gdays_i, SOC = x, lowSOC, orig=FALSE)
     # SOC stock at the end of year i
     SOCi_end =  x+deltaSOC
     soc_list[[i+1]] <- SOCi_end
