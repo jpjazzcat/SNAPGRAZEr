@@ -55,6 +55,8 @@ SNAPGRAZE_delta_ann = function(SAND, RAIN, MAT, FIRE, LIGCELL, years, SOC,
 
     if(is.na(Gdays)){
       Gdays_i = 22.99*MAT_i-0.94*MAT_i^2+0.073*RAIN_i
+    }else{
+      Gdays_i = Gdays
     }
 
     if(is.na(Sk)){
@@ -69,16 +71,16 @@ SNAPGRAZE_delta_ann = function(SAND, RAIN, MAT, FIRE, LIGCELL, years, SOC,
       S0_i = S0
     }
 
-
-    if(is.na(Cg)) {
-      Cg = (5300+770*log(W))
-    }
-
     if(is.na(Fdays)){
       Fdays_i = Gdays_i-(Edays_i+Ddays_i)
     }else{
       Fdays_i = Fdays
     }
+
+    if(is.na(Cg)) {
+      Cg = (5300+770*log(W))
+    }
+
 
 
     # Episodic Herbivory Model (EHM)
