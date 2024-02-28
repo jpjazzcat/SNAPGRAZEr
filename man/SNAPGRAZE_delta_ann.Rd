@@ -13,7 +13,7 @@ SNAPGRAZE_delta_ann(
   years,
   SOC,
   Sk = NA,
-  S0 = 0.1 * Sk,
+  S0 = NA,
   Edays,
   Ddays,
   Fdays,

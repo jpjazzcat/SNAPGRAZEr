@@ -25,7 +25,7 @@
 #' @export
 
 SNAPGRAZE_delta_ann = function(SAND, RAIN, MAT, FIRE, LIGCELL, years, SOC,
-                           Sk = NA, S0 = 0.1*Sk, Edays, Ddays, Fdays, Gdays = NA, d_off,
+                           Sk = NA, S0 = NA, Edays, Ddays, Fdays, Gdays = NA, d_off,
                            d, n, W, Cg = NA, r = 0.05, APCcorrection = FALSE, lowSOC = FALSE, DEPTH = 30, orig = FALSE) {
 
 
@@ -58,8 +58,13 @@ SNAPGRAZE_delta_ann = function(SAND, RAIN, MAT, FIRE, LIGCELL, years, SOC,
     }
 
     if(is.na(Sk)){
-      Sk = calc_ANPPmax(RAIN_i, MAT_i, SAND_i)/0.9
+      Sk = calc_ANPPmax(RAIN_i, MAT_i, SAND)/0.9
     }
+
+    if(is.na(S0)){
+      S0 = 0.1*Sk
+    }
+
 
     if(is.na(Cg)) {
       Cg = (5300+770*log(W))
