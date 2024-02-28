@@ -32,8 +32,8 @@ SNAPGRAZE_delta_ann = function(SAND, RAIN, MAT, FIRE, LIGCELL, years, SOC,
   soc_list[[1]] <- SOC
 
   test_input <- function(x){
-    if(length(x) > 1){
-      x <- x[[i]]
+    if(length(unlist(x)) > 1){
+      x <- unlist(x)[[i]]
     }else{
       x
     }
