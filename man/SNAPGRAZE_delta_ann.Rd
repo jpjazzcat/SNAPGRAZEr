@@ -16,7 +16,7 @@ SNAPGRAZE_delta_ann(
   S0 = NA,
   Edays,
   Ddays,
-  Fdays,
+  Fdays = NA,
   Gdays = NA,
   d_off,
   d,

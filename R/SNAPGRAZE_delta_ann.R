@@ -25,7 +25,7 @@
 #' @export
 
 SNAPGRAZE_delta_ann = function(SAND, RAIN, MAT, FIRE, LIGCELL, years, SOC,
-                           Sk = NA, S0 = NA, Edays, Ddays, Fdays, Gdays = NA, d_off,
+                           Sk = NA, S0 = NA, Edays, Ddays, Fdays = NA, Gdays = NA, d_off,
                            d, n, W, Cg = NA, r = 0.05, APCcorrection = FALSE, lowSOC = FALSE, DEPTH = 30, orig = FALSE) {
 
 
