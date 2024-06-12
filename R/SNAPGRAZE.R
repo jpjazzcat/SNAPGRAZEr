@@ -16,7 +16,7 @@
 #' @param n Number of "pastures" per total area, A.
 #' @param W Average animal body size (kg live weight)
 #' @param Cg Daily consumption rate (g/animal/day)
-#' @param r Relative growth rate of grass biomass, which is variable over the growing season given it's density dependence. Can be calculated as tht intercept of a relationship between the measured relative growth rate and biomass at a given time. Default for tropical grasslands is 0.05 and for temperate grasslands is 0.035.
+#' @param r Maximum relative growth rate of grass biomass. Can be calculated as the y-intercept of the relationship between the measured relative growth rate and biomass at a given time. Default for tropical grasslands is 0.05 and for temperate grasslands is 0.035.
 #' @param APCcorrection Default = FALSE. A correction factor for the influence of annual versus perennial plant growth strategies on belowground production. If correction is applied, then APC = 0.291. This is where forage is dominated by annuals (or shrubs often associated with annuals in drier grasslands). Otherwise, APC = 1.
 #' @param lowSOC Default = FALSE. Different regression equation for respiration rate is applied for low and high SOC to avoid a negative respiration rate (which isn't physically possible). Threshold for what qualifies as "low SOC" is 4,600 gC/m^2 (i.e. 46 t/ha). Low SOC regression equation is applicable for higher SOC, but just with slightly lower R-squared.
 #' @param DEPTH Default = 30. Depth of soil sampling / estimation (cm). The original SNAP model was developed based on measurements to a depth of 40 cm.
@@ -62,7 +62,7 @@ SNAPGRAZE = function(SAND, RAIN, MAT, FIRE, LIGCELL,
   PDSOCt = calc_PDSOCt(BNPPt_est, Sf, Lo, LIGCELL, FIRE)
   DDSOCt = calc_DDSOCt(LIGCELL, Ddays, Cg, n, d, Lo)
 
-  SOCeq = calc_SOCeq(PDSOCt, DDSOCt, SAND, RAIN, Gdays, lowSOC, orig)
+  SOCeq = calc_SOCeq(PDSOCt, DDSOCt, DEPTH, SAND, RAIN, Gdays, lowSOC, orig)
 
   return(SOCeq)
 
