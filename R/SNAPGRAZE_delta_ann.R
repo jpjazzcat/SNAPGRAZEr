@@ -28,6 +28,53 @@ SNAPGRAZE_delta_ann = function(SAND, RAIN, MAT, FIRE, LIGCELL, years, SOC,
                            Sk = NA, S0 = NA, Edays, Ddays, Fdays = NA, Gdays = NA, d_off,
                            d, n, W, Cg = NA, r = 0.05, APCcorrection = FALSE, DEPTH = 30, orig = FALSE) {
 
+  if(SAND<0|SAND>100){
+    stop("ERROR: SAND must be between 0 and 100")
+  }
+
+  if(RAIN<0|RAIN>10000){
+    stop("ERROR: RAIN must be between 0 and 10000")
+  }
+
+  if(MAT < -20|MAT>40){
+    stop("ERROR: MAT must be between -20 and 40")
+  }
+
+  if(FIRE<0|FIRE>1){
+    stop("ERROR: FIRE must be between 0 and 1")
+  }
+
+  if(LIGCELL<0|LIGCELL>100){
+    stop("ERROR: LIGCELL must be between 0 and 100")
+  }
+
+  if(SOC<0|SOC>500){
+    stop("ERROR: SOC must be between 0 and 500")
+  }
+
+  if(Gdays!=sum(Edays, Ddays, Fdays)){
+    stop("ERROR: Gdays must equal Edays + Ddays + Fdays")
+  }
+
+  if(d<0|d>100){
+    stop("ERROR: d must be between 0 and 100")
+  }
+
+  if(W<0|W>5000){
+    stop("ERROR: W must be between 0 and 5000")
+  }
+
+  if(r<=0|r>0.2){
+    stop("ERROR: r must be between 0 and 0.2")
+  }
+
+  if(APCcorrection<0|APCcorrection>1){
+    stop("ERROR: APCcorrection must be either TRUE, FALSE, or between 0 and 1")
+  }
+
+  if(DEPTH<0|DEPTH>200){
+    stop("ERROR: DEPTH must be between 0 and 200")
+  }
 
   soc_list = vector("list", (years+1))
   soc_list[[1]] <- (SOC*100) # Convert SOC from t/ha to g/m2
