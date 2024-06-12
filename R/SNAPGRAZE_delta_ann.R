@@ -6,7 +6,7 @@
 #' @param MAT Long-term Mean Annual Precipitation (degrees Celsius).
 #' @param FIRE Average number of fires per year (#/year)
 #' @param years Number of years over which to run the simulation.
-#' @param SOC Starting soil carbon stocks (g/m2).
+#' @param SOC Starting soil carbon stocks (t/ha).
 #' @param LIGCELL Lignin and cellulose content of livestock feed for year t (%)
 #' @param Sk The steady state of biomass in the absence of grazing for a given location. This should ideally be measured directly using grazing exclosures.
 #' @param S0 Biomass condition prior to the growing season (at the end of the dry season) that is mostly comprised of carbon stores in rhizomes. Default is 0.1*SK.
@@ -18,19 +18,19 @@
 #' @param n Number of "pastures" per total area, A.
 #' @param W Average animal body size (kg live weight)
 #' @param Cg Daily consumption rate (g/animal/day)
-#' @param r Relative growth rate of grass biomass, which is variable over the growing season given it's density dependence. Can be calculated as tht intercept of a relationship between the measured relative growth rate and biomass at a given time. Default for tropical grasslands is 0.05 and for temperate grasslands is 0.035.
+#' @param r Maximum relative growth rate of grass biomass. Can be calculated as the y-intercept of a relationship between the measured relative growth rate and biomass at a given time. Default for tropical grasslands is 0.05 and for temperate grasslands is 0.035.
 #' @param APCcorrection Default = FALSE. A correction factor for the influence of annual versus perennial plant growth strategies on belowground production. If correction is applied, then APC = 0.291. This is where forage is dominated by annuals (or shrubs often associated with annuals in drier grasslands). Otherwise, APC = 1.
-#' @param lowSOC Default = FALSE. Different regression equation for respiration rate is applied for low and high SOC to avoid a negative respiration rate (which isn't physically possible). Threshold for what qualifies as "low SOC" is 4,600 gC/m^2 (i.e. 46 t/ha). Low SOC regression equation is applicable for higher SOC, but just with slightly lower R-squared.
+#' @param orig Default = FALSE. Use the original DMRESP equations from Ritchie 2020 or the updated ones from Ruan deWet.
 #' @param DEPTH Default = 30. Depth of soil sampling / estimation (cm). The original SNAP model was developed based on measurements to a depth of 40 cm.
 #' @export
 
 SNAPGRAZE_delta_ann = function(SAND, RAIN, MAT, FIRE, LIGCELL, years, SOC,
                            Sk = NA, S0 = NA, Edays, Ddays, Fdays = NA, Gdays = NA, d_off,
-                           d, n, W, Cg = NA, r = 0.05, APCcorrection = FALSE, lowSOC = FALSE, DEPTH = 30, orig = FALSE) {
+                           d, n, W, Cg = NA, r = 0.05, APCcorrection = FALSE, DEPTH = 30, orig = FALSE) {
 
 
   soc_list = vector("list", (years+1))
-  soc_list[[1]] <- SOC
+  soc_list[[1]] <- (SOC*100) # Convert SOC from t/ha to g/m2
 
   test_input <- function(x){
     if(length(unlist(x)) > 1){
@@ -107,13 +107,14 @@ SNAPGRAZE_delta_ann = function(SAND, RAIN, MAT, FIRE, LIGCELL, years, SOC,
     DDSOCt = calc_DDSOCt(LIGCELL = LIGCELL_i, Ddays = Ddays_i, Cg, n = n_i, d = d_i, Lo)
 
     x <- soc_list[[i]]
-    deltaSOC = calc_deltaSOC(PDSOCt, DDSOCt, SAND, RAIN = RAIN_i, Gdays = Gdays_i, SOC = x, lowSOC, orig=FALSE)
+    deltaSOC = calc_deltaSOC(PDSOCt, DDSOCt, SAND, RAIN = RAIN_i, Gdays = Gdays_i, SOC = x, orig=FALSE)
     # SOC stock at the end of year i
     SOCi_end =  x+deltaSOC
     soc_list[[i+1]] <- SOCi_end
 
   }
 
+  soc_list = lapply(soc_list,"/",100) # Convert SOC stocks in list from g/m2 to t/ha
 
   return(soc_list)
 

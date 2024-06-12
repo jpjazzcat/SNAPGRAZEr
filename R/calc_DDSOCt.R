@@ -1,6 +1,6 @@
 #' @title Dung-Derived SOC in year t
 #'
-#' @description When it comes to soil organic carbon (SOC), there is plant-derived SOC (PDSOC) and dung-derived SOC (DDSOC).
+#' @description Dung-derived SOC inputs for year t (PDSOCt) (g/m2)
 #' @param LIGCELL Lignin and cellulose content of livestock feed for year t (%)
 #' @param Ddays Number of days of grazing episode
 #' @param Cg Daily consumption rate (g/animal/day). This is the average rate during the growing season - for the dormant season, the equations assume half this consumption rate.

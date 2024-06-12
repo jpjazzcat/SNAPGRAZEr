@@ -1,57 +1,40 @@
 #' @title Equilibrium SOC
 #'
-#' @description To calculate the change in SOC for year t (deltaSOCt), we need the combination of PDSOCt and DDSOCt, but also the maximum rate of microbial respiration for year t (MRESPt). A key input to MRESPt is WETDAYS, which is calculated as part of this function. Equilibrium SOC can be calculated by solving for deltaSOC = 0, which then avoids the need for SOC measurement.
-#' @param PDSOCt Output of calc_PDSOCt()
-#' @param DDSOCt Output of calc_DDSOCt()
-#' @param SAND Sand % in top 30 cm soil
-#' @param RAIN MAP for year t (mm/year)
+#' @description Calculate the SOC stock in tSOC/ha at equilibrium under the specified conditions. This is the point at which SOC inputs from plant and dung equal SOC outputs from soil respiration (deltaSOC = 0).
+#' @param PDSOCt Output of calc_PDSOCt() (g/m2)
+#' @param DDSOCt Output of calc_DDSOCt() (g/m2)
+#' @param DEPTH Soil depth at which equilibrium SOC stock is reported (cm)
+#' @param SAND Sand content in top 30 cm soil (%)
+#' @param RAIN Mean annual precipitation for year t (mm/year)
 #' @param Gdays Total number of days in the growing season. Default = 153 (October to March-ish).
-#' @param lowSOC Default = FALSE. Different regression equation for respiration rate is applied for low and high SOC to avoid a negative respiration rate (which isn't physically possible). Threshold for what qualifies as "low SOC" is 4,600 gC/m^2 (i.e. 46 t/ha). Low SOC regression equation is applicable for higher SOC, but just with slightly lower R-squared.
 #' @param orig Default = FALSE. Use the original DMRESP equations from Ritchie 2020 or the updated ones from Ruan deWet
 #' @export
 
-calc_SOCeq = function(PDSOCt, DDSOCt, SAND, RAIN, Gdays, lowSOC = FALSE, orig = FALSE) {
+calc_SOCeq = function(PDSOCt, DDSOCt, DEPTH, SAND, RAIN, Gdays, orig = FALSE) {
 
   WETDAYS = (0.00044*RAIN-0.025)*Gdays
 
   if(orig) {
 
-    if(lowSOC) {
+    SOCeq = min(((PDSOCt+DDSOCt)/(WETDAYS*(0.7+0.3*(SAND/100))*exp(-10.872)))^(1/1.296),
+                ((((PDSOCt+DDSOCt)/(WETDAYS*(0.7+(0.3*(SAND/100)))))+0.579)/0.00044))
 
-      SOCeq = ((PDSOCt+DDSOCt)/(WETDAYS*(0.7+0.3*(SAND/100))*exp(-10.872)))^(1/1.296)
-
-    } else {
-
-      SOCeq =
-
-        ((PDSOCt+DDSOCt+(0.579*WETDAYS*(0.7+0.3*(SAND/100))))/(0.00044*WETDAYS*(0.7+0.3*(SAND/100))))
-
-    }
-
+    SOCeq = SOCeq*(-0.35+0.37*log(DEPTH))/100
 
   } else {
 
-    if(lowSOC) {
+    SOCeq = min(((PDSOCt+DDSOCt)/(WETDAYS*(0.7+0.3*(SAND/100))*exp(-10.872)))^(1/1.296),
+                ((((PDSOCt+DDSOCt)/(WETDAYS*(0.7+(0.3*(SAND/100)))))+0.579)/0.00036))
 
-      SOCeq = ((PDSOCt+DDSOCt)/(WETDAYS*(0.7+0.3*(SAND/100))*exp(-10.872)))^(1/1.296)
+    SOCeq = SOCeq*(-0.35+0.37*log(DEPTH))/100
 
-    } else {
 
-      SOCeq =
-
-        ((PDSOCt+DDSOCt+(0.579*WETDAYS*(0.7+0.3*(SAND/100))))/(0.00036*WETDAYS*(0.7+0.3*(SAND/100))))
-
-    }
-
+    # Minimum function reflects piecewise equation to calculate MRESP. See 'calc_deltaSOC' for more.
+    # Depth function adjusts SOC stock to specified depth. Original SNAP model was calibrated to 40 cm. Not sure where coefficients come from, but they exist in older versions of code. Worth confirming.
+    # Divide by 100 to convert units from g/m2 to t/ha
 
   }
-
-
-
-
-
 
   return(SOCeq)
 
 }
-

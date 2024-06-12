@@ -1,11 +1,11 @@
 #' @title Plant-Derived SOC in year t
 #'
-#' @description When it comes to soil organic carbon (SOC), there is plant-derived SOC (PDSOC) and dung-derived SOC (DDSOC). PDSOCt just takes the estimated ANPP and BNPP along with LIGCELL, Fire and information about grazing management
+#' @description Plant-derived SOC inputs for year t (PDSOCt) (g/m2)
 #' @param BNPPt_est Output of calc_BNPPest()
-#' @param Sf Biomass at the end of the growing season. Output of calc_Sf().
-#' @param Lo Loss of biomass during the off season. Output of calc_Lo().
+#' @param Sf Biomass at the end of the growing season. Output of calc_Sf() (g/m2)
+#' @param Lo Loss of biomass during the non-growing season. Output of calc_Lo() (g/m2)
 #' @param LIGCELL Lignin and cellulose content of livestock feed for year t (%)
-#' @param FIRE Average number of fires per year (#/year)
+#' @param FIRE Proportion of biomass consumed by fire during the non-growing season (0-1)
 #' @export
 
 
