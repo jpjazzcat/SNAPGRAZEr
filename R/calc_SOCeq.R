@@ -4,7 +4,7 @@
 #' @param PDSOCt Output of calc_PDSOCt() (g/m2)
 #' @param DDSOCt Output of calc_DDSOCt() (g/m2)
 #' @param DEPTH Soil depth at which equilibrium SOC stock is reported (cm)
-#' @param SAND Sand content in top 30 cm soil (%)
+#' @param SAND Sand fraction in the top 30 cm of soil (0 - 1)
 #' @param RAIN Mean annual precipitation for year t (mm/year)
 #' @param Gdays Total number of days in the growing season. Default = 153 (October to March-ish).
 #' @param orig Default = FALSE. Use the original DMRESP equations from Ritchie 2020 or the updated ones from Ruan deWet
@@ -16,15 +16,15 @@ calc_SOCeq = function(PDSOCt, DDSOCt, DEPTH, SAND, RAIN, Gdays, orig = FALSE) {
 
   if(orig) {
 
-    SOCeq = min(((PDSOCt+DDSOCt)/(WETDAYS*(0.7+0.3*(SAND/100))*exp(-10.872)))^(1/1.296),
-                ((((PDSOCt+DDSOCt)/(WETDAYS*(0.7+(0.3*(SAND/100)))))+0.579)/0.00044))
+    SOCeq = min(((PDSOCt+DDSOCt)/(WETDAYS*(0.7+0.3*SAND)*exp(-10.872)))^(1/1.296),
+                ((((PDSOCt+DDSOCt)/(WETDAYS*(0.7+(0.3*SAND))))+0.579)/0.00044))
 
     SOCeq = SOCeq*(-0.35+0.37*log(DEPTH))/100
 
   } else {
 
-    SOCeq = min(((PDSOCt+DDSOCt)/(WETDAYS*(0.7+0.3*(SAND/100))*exp(-10.872)))^(1/1.296),
-                ((((PDSOCt+DDSOCt)/(WETDAYS*(0.7+(0.3*(SAND/100)))))+0.579)/0.00036))
+    SOCeq = min(((PDSOCt+DDSOCt)/(WETDAYS*(0.7+0.3*SAND)*exp(-10.872)))^(1/1.296),
+                ((((PDSOCt+DDSOCt)/(WETDAYS*(0.7+(0.3*SAND))))+0.579)/0.00036))
 
     SOCeq = SOCeq*(-0.35+0.37*log(DEPTH))/100
 

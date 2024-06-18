@@ -1,20 +1,21 @@
 #' @title SNAPGRAZE delta Wrapper Function
 #'
 #' @description This is a wrapper function around all the SNAPGRAZE equations to calculate SOC delta over a given number of years. Management and weather inputs can be provided as either single values or as a vector/list of values representing the corresponding value for each year being modeled.
-#' @param SAND Sand % in top 30 cm soil
+#' @param SAND Sand fraction in the top 30 cm of soil (0 - 1)
 #' @param RAIN Long-term Mean Annual Precipitation (mm/year).
 #' @param MAT Long-term Mean Annual Precipitation (degrees Celsius).
 #' @param FIRE Average number of fires per year (#/year)
 #' @param years Number of years over which to run the simulation.
 #' @param SOC Starting soil carbon stocks (t/ha).
-#' @param LIGCELL Lignin and cellulose content of livestock feed for year t (%)
+#' @param LIGCELL Lignin and cellulose fraction of plant biomass (0 - 1)
 #' @param Sk The steady state of biomass in the absence of grazing for a given location. This should ideally be measured directly using grazing exclosures.
 #' @param S0 Biomass condition prior to the growing season (at the end of the dry season) that is mostly comprised of carbon stores in rhizomes. Default is 0.1*SK.
 #' @param Edays Number of days within the growing season prior to grazing episode
 #' @param Ddays Number of days of grazing episode
 #' @param Fdays Number of days left in the growing season after the grazing episode. Fdays = Gdays - Edays - Ddays
 #' @param Gdays Total number of days in the growing season. Default = 153 (October to March-ish).
-#' @param d Stocking density (head/ha)
+#' @param d Stocking density during the growing season (head/ha)
+#' @param d_off Stocking density during the offseason (head/ha)
 #' @param n Number of "pastures" per total area, A.
 #' @param W Average animal body size (kg live weight)
 #' @param Cg Daily consumption rate (g/animal/day)
@@ -28,8 +29,8 @@ SNAPGRAZE_delta_ann = function(SAND, RAIN, MAT, FIRE, LIGCELL, years, SOC,
                            Sk = NA, S0 = NA, Edays, Ddays, Fdays = NA, Gdays = NA, d_off,
                            d, n, W, Cg = NA, r = 0.05, APCcorrection = FALSE, DEPTH = 30, orig = FALSE) {
 
-  if(SAND<0|SAND>100){
-    stop("ERROR: SAND must be between 0 and 100")
+  if(SAND<0|SAND>1){
+    stop("ERROR: SAND must be between 0 and 1")
   }
 
   if(RAIN<0|RAIN>10000){
@@ -44,8 +45,8 @@ SNAPGRAZE_delta_ann = function(SAND, RAIN, MAT, FIRE, LIGCELL, years, SOC,
     stop("ERROR: FIRE must be between 0 and 1")
   }
 
-  if(LIGCELL<0|LIGCELL>100){
-    stop("ERROR: LIGCELL must be between 0 and 100")
+  if(LIGCELL<0|LIGCELL>1){
+    stop("ERROR: LIGCELL must be between 0 and 1")
   }
 
   if(SOC<0|SOC>500){

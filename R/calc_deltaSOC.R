@@ -3,7 +3,7 @@
 #' @description Calculate the change in SOC for year t (deltaSOCt) in tSOC/ha using plant-derived soil organic carbon (PDSOCt), dung-derived soil organic carbon (DDSOCt), and microbial respiration (MRESPt). A key input to MRESPt is WETDAYS, which is calculated as part of this function.
 #' @param PDSOCt Output of calc_PDSOCt()
 #' @param DDSOCt Output of calc_DDSOCt()
-#' @param SAND Sand % in top 30 cm soil
+#' @param SAND Sand fraction in the top 30 cm of soil (0 - 1)
 #' @param RAIN MAP for year t (mm/year)
 #' @param Gdays Total number of days in the growing season. Default = 153 (October to March-ish).
 #' @param SOC Starting soil organic carbon stocks (tSOC/ha).
@@ -47,7 +47,7 @@ calc_deltaSOC = function(PDSOCt, DDSOCt, SAND, RAIN, Gdays, SOC, orig = FALSE) {
   }
 
 
-  MRESPt = (WETDAYS*(0.7+(0.3*SAND/100)))*DMRESP
+  MRESPt = (WETDAYS*(0.7+(0.3*SAND)))*DMRESP
   deltaSOC = (PDSOCt+DDSOCt-MRESPt)/100
 
   return(deltaSOC) # Units = tSOC/ha for single year
