@@ -5,9 +5,9 @@
 #' @param DDSOCt Output of calc_DDSOCt()
 #' @param SAND Sand fraction in the top 30 cm of soil (0 - 1)
 #' @param RAIN MAP for year t (mm/year)
-#' @param Gdays Total number of days in the growing season. Default = 153 (October to March-ish).
+#' @param Gdays Total number of days in the growing season.
 #' @param SOC Starting soil organic carbon stocks (tSOC/ha).
-#' @param orig Default = FALSE. Use the original DMRESP equations from Ritchie 2020 or the updated ones from Ruan deWet
+#' @param orig Default = FALSE. Use the original DMRESP equations from Ritchie 2020 or the updated ones from Ruan deWet.
 #' @export
 
 calc_deltaSOC = function(PDSOCt, DDSOCt, SAND, RAIN, Gdays, SOC, orig = FALSE) {
