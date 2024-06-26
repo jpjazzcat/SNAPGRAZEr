@@ -6,7 +6,7 @@
 #' @param DEPTH Soil depth at which equilibrium SOC stock is reported (cm)
 #' @param SAND Sand fraction in the top 30 cm of soil (0 - 1)
 #' @param RAIN Mean annual precipitation for year t (mm/year)
-#' @param Gdays Total number of days in the growing season. Default = 153 (October to March-ish).
+#' @param Gdays Total number of days in the growing season.
 #' @param orig Default = FALSE. Use the original DMRESP equations from Ritchie 2020 or the updated ones from Ruan deWet
 #' @export
 
