@@ -11,7 +11,15 @@
 
 calc_PDSOCt = function(BNPPt_est, Sf, Lo, LIGCELL, FIRE) {
 
-  PDSOCt = 0.45*((LIGCELL*(Sf-Lo/2)*(1-FIRE)) + (LIGCELL+0.05)*BNPPt_est )
-  return(PDSOCt)
+  if(Sf-(Lo/2) < 0){
+
+    stop("ERROR: Offseason consumption exceeds available biomass")
+
+  } else{
+
+    PDSOCt = 0.45*((LIGCELL*(Sf-Lo/2)*(1-FIRE)) + (LIGCELL+0.05)*BNPPt_est)
+    return(PDSOCt)
+
+  }
 
 }
