@@ -1,4 +1,4 @@
-#' @title Biomass loss during grazing episode
+#' @title Biomass consumed during grazing episode
 #'
 #' @description Calculation of the parameter Lg, the biomass loss during grazing episode, from Ritchie (2020)
 #' @param Ddays Number of days of grazing episode
@@ -8,7 +8,7 @@
 #' @param Cg Daily consumption rate (g/animal/day)
 #' @export
 
-calc_Lg = function(Ddays, d, n, W = NA, Cg = NA) {
+calc_Lg = function(Ddays, d, n, W, Cg = NA) {
 
   if(is.numeric(Cg)) {
 
@@ -16,7 +16,7 @@ calc_Lg = function(Ddays, d, n, W = NA, Cg = NA) {
 
   } else if(is.numeric(W)) {
 
-    Cg = (5300+770*log(W))
+    Cg = calc_Cg(W)
 
   } else {print("You need to either provide Cg (daily consumption) or W (animal body size)")}
 
