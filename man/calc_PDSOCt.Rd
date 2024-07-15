@@ -9,14 +9,14 @@ calc_PDSOCt(BNPPt_est, Sf, Lo, LIGCELL, FIRE)
 \arguments{
 \item{BNPPt_est}{Output of calc_BNPPest()}
 
-\item{Sf}{Biomass at the end of the growing season. Output of calc_Sf().}
+\item{Sf}{Biomass at the end of the growing season. Output of calc_Sf() (g/m2)}
 
-\item{Lo}{Loss of biomass during the off season. Output of calc_Lo().}
+\item{Lo}{Loss of biomass during the non-growing season. Output of calc_Lo() (g/m2)}
 
-\item{LIGCELL}{Lignin and cellulose content of livestock feed for year t (\%)}
+\item{LIGCELL}{Lignin and cellulose fraction of plant biomass (0 - 1)}
 
-\item{FIRE}{Average number of fires per year (#/year)}
+\item{FIRE}{Proportion of biomass consumed by fire during the non-growing season (0-1)}
 }
 \description{
-When it comes to soil organic carbon (SOC), there is plant-derived SOC (PDSOC) and dung-derived SOC (DDSOC). PDSOCt just takes the estimated ANPP and BNPP along with LIGCELL, Fire and information about grazing management
+Plant-derived SOC inputs for year t (PDSOCt) (g/m2)
 }

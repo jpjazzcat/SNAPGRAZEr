@@ -19,7 +19,7 @@ calc_Sg(Sk, Se, Lg, Ddays, n, d, r, W = NA, Cg = NA)
 
 \item{d}{Stocking density (head/ha)}
 
-\item{r}{Relative growth rate of grass biomass, which is variable over the growing season given it's density dependence. Can be calculated as tht intercept of a relationship between the measured relative growth rate and biomass at a given time. Default for tropical grasslands is 0.05 and for temperate grasslands is 0.035.}
+\item{r}{Maximum relative growth rate of plant biomass. Can be calculated as the y-intercept of the relationship between the measured relative growth rate and plant biomass over the growing season. Default for tropical grasslands is 0.05 and for temperate grasslands is 0.035.}
 
 \item{W}{Average animal body size (kg live weight)}
 

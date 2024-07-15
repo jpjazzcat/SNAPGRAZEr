@@ -4,14 +4,18 @@
 \alias{calc_Lo}
 \title{Loss of biomass during the off season}
 \usage{
-calc_Lo(Cg, Gdays = 153, d_off)
+calc_Lo(Cg, Co = NA, Gdays, DdaysO = NA, d_off)
 }
 \arguments{
-\item{Cg}{Daily consumption rate (g/animal/day). This is the average rate during the growing season - for the dormant season, the equations assume half this consumption rate.}
+\item{Cg}{Daily biomass consumption rate during the growing season (g/animal/day).}
 
-\item{Gdays}{Total number of days in the growing season. Default = 153 (October to March-ish).}
+\item{Co}{Daily biomass consumption rate during the offseason (g/animal/day).}
 
-\item{d}{Stocking density (head/ha)}
+\item{Gdays}{Total number of days in the growing season.}
+
+\item{DdaysO}{Number of days in offseason grazing episode. Default = 365 - Gdays.}
+
+\item{d_off}{Stocking density during the offseason (head/ha)}
 }
 \description{
 Estimating the amount of biomass lost during the dormant season (dry, non-growing season).

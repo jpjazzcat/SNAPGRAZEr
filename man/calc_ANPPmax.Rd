@@ -11,7 +11,7 @@ calc_ANPPmax(RAIN, MAT, SAND)
 
 \item{MAT}{Long-term Mean Annual Precipitation (degrees Celsius).}
 
-\item{SAND}{Sand \% in top 30 cm soil}
+\item{SAND}{Sand fraction in the top 30 cm of soil (0 - 1)}
 }
 \description{
 This function calculates the max ANPP  given mean annual precipitation and temperature.

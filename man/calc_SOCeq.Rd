@@ -4,23 +4,23 @@
 \alias{calc_SOCeq}
 \title{Equilibrium SOC}
 \usage{
-calc_SOCeq(PDSOCt, DDSOCt, SAND, RAIN, Gdays, lowSOC = FALSE, orig = FALSE)
+calc_SOCeq(PDSOCt, DDSOCt, DEPTH, SAND, RAIN, Gdays, orig = FALSE)
 }
 \arguments{
-\item{PDSOCt}{Output of calc_PDSOCt()}
+\item{PDSOCt}{Output of calc_PDSOCt() (g/m2)}
 
-\item{DDSOCt}{Output of calc_DDSOCt()}
+\item{DDSOCt}{Output of calc_DDSOCt() (g/m2)}
 
-\item{SAND}{Sand \% in top 30 cm soil}
+\item{DEPTH}{Soil depth at which equilibrium SOC stock is reported (cm)}
 
-\item{RAIN}{MAP for year t (mm/year)}
+\item{SAND}{Sand fraction in the top 30 cm of soil (0 - 1)}
 
-\item{Gdays}{Total number of days in the growing season. Default = 153 (October to March-ish).}
+\item{RAIN}{Mean annual precipitation for year t (mm/year)}
 
-\item{lowSOC}{Default = FALSE. Different regression equation for respiration rate is applied for low and high SOC to avoid a negative respiration rate (which isn't physically possible). Threshold for what qualifies as "low SOC" is 4,600 gC/m^2 (i.e. 46 t/ha). Low SOC regression equation is applicable for higher SOC, but just with slightly lower R-squared.}
+\item{Gdays}{Total number of days in the growing season.}
 
 \item{orig}{Default = FALSE. Use the original DMRESP equations from Ritchie 2020 or the updated ones from Ruan deWet}
 }
 \description{
-To calculate the change in SOC for year t (deltaSOCt), we need the combination of PDSOCt and DDSOCt, but also the maximum rate of microbial respiration for year t (MRESPt). A key input to MRESPt is WETDAYS, which is calculated as part of this function. Equilibrium SOC can be calculated by solving for deltaSOC = 0, which then avoids the need for SOC measurement.
+Calculate the SOC stock in tSOC/ha at equilibrium under the specified conditions. This is the point at which SOC inputs from plant and dung equal SOC outputs from soil respiration (deltaSOC = 0).
 }

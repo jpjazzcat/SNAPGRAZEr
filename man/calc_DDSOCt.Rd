@@ -7,7 +7,7 @@
 calc_DDSOCt(LIGCELL, Ddays, Cg, n, d, Lo)
 }
 \arguments{
-\item{LIGCELL}{Lignin and cellulose content of livestock feed for year t (\%)}
+\item{LIGCELL}{Lignin and cellulose fraction of plant biomass (0 - 1)}
 
 \item{Ddays}{Number of days of grazing episode}
 
@@ -20,5 +20,5 @@ calc_DDSOCt(LIGCELL, Ddays, Cg, n, d, Lo)
 \item{Lo}{Loss of biomass during the off season. Output of calc_Lo().}
 }
 \description{
-When it comes to soil organic carbon (SOC), there is plant-derived SOC (PDSOC) and dung-derived SOC (DDSOC).
+Dung-derived SOC inputs for year t (PDSOCt) (g/m2)
 }

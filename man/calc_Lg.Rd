@@ -2,9 +2,9 @@
 % Please edit documentation in R/calc_LG.R
 \name{calc_Lg}
 \alias{calc_Lg}
-\title{Biomass loss during grazing episode}
+\title{Biomass consumed during grazing episode}
 \usage{
-calc_Lg(Ddays, d, n, W = NA, Cg = NA)
+calc_Lg(Ddays, d, n, W, Cg = NA)
 }
 \arguments{
 \item{Ddays}{Number of days of grazing episode}

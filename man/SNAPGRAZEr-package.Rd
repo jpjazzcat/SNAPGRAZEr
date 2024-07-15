@@ -4,20 +4,19 @@
 \name{SNAPGRAZEr-package}
 \alias{SNAPGRAZEr}
 \alias{SNAPGRAZEr-package}
-\title{SNAPGRAZEr: Estimate SOC using SNAPGRAZE model}
+\title{SNAPGRAZEr: A model for simulating the impacts of grazing management on SOC stocks and stock changes}
 \description{
-R implementation of the SNAPGRAZE model equations developed by Mark Ritchie to estimate the equilibrium soil organic carbon stocks for a given climate and rangeland management history.
+R implementation of the SNAPGRAZE model first published by Ritchie 2020 to simulate the impacts of grazing management, climate, soil, and vegetation parameters on SOC stocks and stock changes. Branched from GitHub repos originally made by 'ruan-de-wet' and 'kanedan29'.
 }
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/ruan-de-wet/SNAPGRAZEr}
-  \item Report bugs at \url{https://github.com/ruan-de-wet/SNAPGRAZEr/issues}
+  \item \url{https://github.com/jpjazzcat/SNAPGRAZEr}
 }
 
 }
 \author{
-\strong{Maintainer}: Ruan de Wet \email{ruan@meatnaturallyafrica.com} (\href{https://orcid.org/0000-0001-5221-8042}{ORCID})
+\strong{Maintainer}: Jacob Penner \email{jacob.penner@tnc.org} (\href{https://orcid.org/0000-0001-9578-4458}{ORCID})
 
 }
 \keyword{internal}

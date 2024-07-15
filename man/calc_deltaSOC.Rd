@@ -4,34 +4,23 @@
 \alias{calc_deltaSOC}
 \title{Delta SOC}
 \usage{
-calc_deltaSOC(
-  PDSOCt,
-  DDSOCt,
-  SAND,
-  RAIN,
-  Gdays,
-  SOC,
-  lowSOC = FALSE,
-  orig = FALSE
-)
+calc_deltaSOC(PDSOCt, DDSOCt, SAND, RAIN, Gdays, SOC, orig = FALSE)
 }
 \arguments{
 \item{PDSOCt}{Output of calc_PDSOCt()}
 
 \item{DDSOCt}{Output of calc_DDSOCt()}
 
-\item{SAND}{Sand \% in top 30 cm soil}
+\item{SAND}{Sand fraction in the top 30 cm of soil (0 - 1)}
 
 \item{RAIN}{MAP for year t (mm/year)}
 
-\item{Gdays}{Total number of days in the growing season. Default = 153 (October to March-ish).}
+\item{Gdays}{Total number of days in the growing season.}
 
-\item{SOC}{Starting soil carbon stocks (g/m2).}
+\item{SOC}{Starting soil organic carbon stocks (tSOC/ha).}
 
-\item{lowSOC}{Default = FALSE. Different regression equation for respiration rate is applied for low and high SOC to avoid a negative respiration rate (which isn't physically possible). Threshold for what qualifies as "low SOC" is 4,600 gC/m^2 (i.e. 46 t/ha). Low SOC regression equation is applicable for higher SOC, but just with slightly lower R-squared.}
-
-\item{orig}{Default = FALSE. Use the original DMRESP equations from Ritchie 2020 or the updated ones from Ruan deWet}
+\item{orig}{Default = FALSE. Use the original DMRESP equations from Ritchie 2020 or the updated ones from Ruan deWet.}
 }
 \description{
-To calculate the change in SOC for year t (deltaSOCt), we need the combination of PDSOCt and DDSOCt, but also the maximum rate of microbial respiration for year t (MRESPt). A key input to MRESPt is WETDAYS, which is calculated as part of this function.
+Calculate the change in SOC for year t (deltaSOCt) in tSOC/ha using plant-derived soil organic carbon (PDSOCt), dung-derived soil organic carbon (DDSOCt), and microbial respiration (MRESPt). A key input to MRESPt is WETDAYS, which is calculated as part of this function.
 }
