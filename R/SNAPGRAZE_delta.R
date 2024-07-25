@@ -115,20 +115,20 @@ SNAPGRAZE_delta = function(SAND, RAIN, MAT, FIRE, LIGCELL, years, SOC,
   PDSOCt = calc_PDSOCt(BNPPt_est, Sf, Lo, LIGCELL, FIRE)
   DDSOCt = calc_DDSOCt(LIGCELL, Ddays, Cg, n, d, Lo)
 
-  soc_list = vector("list", years)
-  soc_list[[1]] <- (SOC) # Convert SOC from t/ha to g/m2
+  soc_dataframe = data.frame(year = 0:years, soc = NA)
 
-  for(i in 1:years){
-    x <- soc_list[[i]]
-    deltaSOC = calc_deltaSOC(PDSOCt, DDSOCt, SAND, RAIN, Gdays, SOC = x, orig)
-    # SOC stock at the end of year i
-    SOCi =  x+deltaSOC
-    i <- i+1
-    soc_list[[i]] <- SOCi
-
+  for(i in 0:years){
+    if(i == 0){
+      soc_dataframe[[2]][1] = SOC
+    } else{
+      x = soc_dataframe[[2]][i]
+      deltaSOC = calc_deltaSOC(PDSOCt, DDSOCt, SAND, RAIN, Gdays, SOC = x, orig)
+      SOCi = x+deltaSOC
+      soc_dataframe[[2]][i+1] = SOCi
+    }
   }
 
-  return(soc_list)
+  return(soc_dataframe)
 
   }
 
