@@ -31,8 +31,7 @@ SNAPGRAZE_delta_ann = function(SAND, RAIN, MAT, FIRE, LIGCELL, years, SOC,
                            n, W, Cg = NA, Co = NA, r, APCcorrection = FALSE, DEPTH = 30, orig = FALSE) {
 
 
-  soc_list = vector("list", (years+1))
-  soc_list[[1]] <- (SOC)
+  soc_dataframe = data.frame(year = 0:years, soc = NA)
 
   test_input <- function(x){
     if(length(unlist(x)) > 1){
@@ -42,7 +41,11 @@ SNAPGRAZE_delta_ann = function(SAND, RAIN, MAT, FIRE, LIGCELL, years, SOC,
     }
   }
 
-  for(i in 1:years){
+  for(i in 0:years){
+
+    if(i == 0){
+      soc_dataframe[[2]][1] = SOC
+    } else{
 
     RAIN_i <- test_input(RAIN)
     MAT_i <- test_input(MAT)
@@ -154,15 +157,14 @@ SNAPGRAZE_delta_ann = function(SAND, RAIN, MAT, FIRE, LIGCELL, years, SOC,
     PDSOCt = calc_PDSOCt(BNPPt_est, Sf, Lo, LIGCELL = LIGCELL_i, FIRE = FIRE_i)
     DDSOCt = calc_DDSOCt(LIGCELL = LIGCELL_i, Ddays = Ddays_i, Cg, n = n_i, d = d_i, Lo)
 
-    x <- soc_list[[i]]
+    x <- soc_dataframe[[2]][i]
     deltaSOC = calc_deltaSOC(PDSOCt, DDSOCt, SAND, RAIN = RAIN_i, Gdays = Gdays_i, SOC = x, orig=FALSE)
-    # SOC stock at the end of year i
-    SOCi_end =  x+deltaSOC
-    soc_list[[i+1]] <- SOCi_end
-
+    SOCi =  x+deltaSOC
+    soc_dataframe[[2]][i+1] = SOCi
+    }
   }
 
-  return(soc_list)
+  return(soc_dataframe)
 
 }
 
